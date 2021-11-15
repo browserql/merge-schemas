@@ -2,12 +2,12 @@ import { buildSchema, DefinitionNode, Kind, parse, print } from 'graphql'
 
 const extendError = /There can be only one type named "(.+)"\./;
 
-export function sanitizeSchema(source: string, iterations = 0, limit = 2): string {
+export function sanitizeSchema(source: string, iterations = 0): string {
   try {
     buildSchema(source);
     return source;
   } catch (error) {
-    if (iterations > limit) {
+    if (iterations > 10) {
       throw new Error(`Maximum loop: ${source}`)
     }
 

@@ -25,15 +25,14 @@ exports.__esModule = true;
 exports.sanitizeSchema = void 0;
 var graphql_1 = require("graphql");
 var extendError = /There can be only one type named "(.+)"\./;
-function sanitizeSchema(source, iterations, limit) {
+function sanitizeSchema(source, iterations) {
     if (iterations === void 0) { iterations = 0; }
-    if (limit === void 0) { limit = 2; }
     try {
         (0, graphql_1.buildSchema)(source);
         return source;
     }
     catch (error) {
-        if (iterations > limit) {
+        if (iterations > 10) {
             throw new Error("Maximum loop: " + source);
         }
         if (error instanceof Error) {
