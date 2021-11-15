@@ -22,18 +22,24 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 exports.__esModule = true;
+exports.sanitizeSchema = void 0;
 var graphql_1 = require("graphql");
 var extendError = /There can be only one type named "(.+)"\./;
-function sanitizeSchema(source) {
+function sanitizeSchema(source, iterations, limit) {
+    if (iterations === void 0) { iterations = 0; }
+    if (limit === void 0) { limit = source.split('\n').length; }
     try {
-        graphql_1.buildSchema(source);
+        (0, graphql_1.buildSchema)(source);
         return source;
     }
     catch (error) {
+        if (iterations > limit) {
+            throw new Error("Maximum loop: " + source);
+        }
         if (error instanceof Error) {
             if (extendError.test(error.message)) {
                 var type_1 = error.message.replace(extendError, '$1');
-                var _a = graphql_1.parse(source), definitions = _a.definitions, doc = __rest(_a, ["definitions"]);
+                var _a = (0, graphql_1.parse)(source), definitions = _a.definitions, doc = __rest(_a, ["definitions"]);
                 var found_1 = false;
                 var nextDefs = definitions.map(function (def) {
                     if (def.kind === 'ObjectTypeDefinition' && def.name.value === type_1) {
@@ -46,7 +52,7 @@ function sanitizeSchema(source) {
                     }
                     return def;
                 });
-                return sanitizeSchema(graphql_1.print(__assign(__assign({}, doc), { definitions: nextDefs })));
+                return sanitizeSchema((0, graphql_1.print)(__assign(__assign({}, doc), { definitions: nextDefs })), iterations++);
             }
         }
         throw error;
