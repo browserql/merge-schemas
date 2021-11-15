@@ -2,7 +2,7 @@ import { buildSchema, DefinitionNode, Kind, parse, print } from 'graphql'
 
 const extendError = /There can be only one type named "(.+)"\./;
 
-export function sanitizeSchema(source: string, iterations = 0, limit = source.split('\n').length): string {
+export function sanitizeSchema(source: string, iterations = 0, limit = 1000): string {
   try {
     buildSchema(source);
     return source;
@@ -38,7 +38,7 @@ export function sanitizeSchema(source: string, iterations = 0, limit = source.sp
         );
       }
     }
-    
+
     throw error;
   }
 }

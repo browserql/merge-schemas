@@ -27,7 +27,7 @@ var graphql_1 = require("graphql");
 var extendError = /There can be only one type named "(.+)"\./;
 function sanitizeSchema(source, iterations, limit) {
     if (iterations === void 0) { iterations = 0; }
-    if (limit === void 0) { limit = source.split('\n').length; }
+    if (limit === void 0) { limit = 1000; }
     try {
         (0, graphql_1.buildSchema)(source);
         return source;

@@ -24,6 +24,8 @@ async function run(commitMessage) {
   await promisify(exec)(`git commit -am "${nextBranch}"`)
 
   await promisify(exec)(`git push --set-upstream origin ${nextBranch}`)
+
+  console.log(nextBranch);
 }
 
 const [,, commit] = process.argv
