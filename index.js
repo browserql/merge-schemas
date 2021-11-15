@@ -28,6 +28,10 @@ var extendError = /There can be only one type named "(.+)"\./;
 function sanitizeSchema(source, iterations) {
     if (iterations === void 0) { iterations = 0; }
     try {
+        console.log(source);
+        console.log();
+        console.log();
+        console.log();
         (0, graphql_1.buildSchema)(source);
         return source;
     }
@@ -36,6 +40,7 @@ function sanitizeSchema(source, iterations) {
             throw new Error("Maximum loop: " + source);
         }
         if (error instanceof Error) {
+            console.log(error.message);
             if (extendError.test(error.message)) {
                 var type_1 = error.message.replace(extendError, '$1');
                 var _a = (0, graphql_1.parse)(source), definitions = _a.definitions, doc = __rest(_a, ["definitions"]);
