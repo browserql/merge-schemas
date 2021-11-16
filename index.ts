@@ -33,11 +33,11 @@ export function sanitizeSchema(source: string, iterations = 0): string {
           ...doc,
           definitions: nextDefs,
         })
-        console.log(nextSource)
-        return sanitizeSchema(
-          nextSource,
-          iterations++
-        );
+        return nextSource
+        // return sanitizeSchema(
+        //   nextSource,
+        //   iterations++
+        // );
       }
     }
 
