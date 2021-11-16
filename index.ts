@@ -34,13 +34,13 @@ export function sanitizeSchema(source: string, iterations = 0): string {
           }
           return def;
         });
-        // return sanitizeSchema(
-        //   print({
-        //     ...doc,
-        //     definitions: nextDefs,
-        //   }),
-        //   iterations++
-        // );
+        return sanitizeSchema(
+          print({
+            ...doc,
+            definitions: nextDefs,
+          }),
+          iterations++
+        );
       }
     }
 
