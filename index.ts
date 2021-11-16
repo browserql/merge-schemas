@@ -4,10 +4,6 @@ const extendError = /There can be only one type named "(.+)"\./;
 
 export function sanitizeSchema(source: string, iterations = 0): string {
   try {
-    console.log(source)
-    console.log()
-    console.log()
-    console.log()
     buildSchema(source);
     return source;
   } catch (error) {
@@ -16,7 +12,6 @@ export function sanitizeSchema(source: string, iterations = 0): string {
     }
 
     if (error instanceof Error) {
-      console.log(error.message)
       if (extendError.test(error.message)) {
         const type = error.message.replace(extendError, '$1');
         const { definitions, ...doc } = parse(source);
