@@ -32,7 +32,7 @@ async function run() {
     start(userType: UserType!): JSON!
   }
 
-  extend type Query {
+  type Query {
     ping: Pong
   }
 
