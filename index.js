@@ -21,7 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.sanitizeSchema = void 0;
 var graphql_1 = require("graphql");
 var extendError = /There can be only one type named "(.+)"\./;
@@ -37,16 +37,17 @@ function sanitizeSchema(source, iterations) {
         }
         if (error instanceof Error) {
             if (extendError.test(error.message)) {
-                var type_1 = error.message.replace(extendError, '$1');
+                var firstError = error.message.split("\n")[0];
+                var type_1 = firstError.replace(extendError, "$1");
                 var _a = (0, graphql_1.parse)(source), definitions = _a.definitions, doc = __rest(_a, ["definitions"]);
                 var found_1 = false;
                 var nextDefs = definitions.map(function (def) {
-                    if (def.kind === 'ObjectTypeDefinition' && def.name.value === type_1) {
+                    if (def.kind === "ObjectTypeDefinition" && def.name.value === type_1) {
                         if (!found_1) {
                             found_1 = true;
                         }
                         else {
-                            return __assign(__assign({}, def), { kind: 'ObjectTypeExtension' });
+                            return __assign(__assign({}, def), { kind: "ObjectTypeExtension" });
                         }
                     }
                     return def;

@@ -1,11 +1,12 @@
 {
   "name": "@browserql/merge-schemas",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "npx ts-node ./test.ts",
-    "deploy": "yarn test && node deploy"
+    "test": "yarn build && npx ts-node ./test.ts",
+    "deploy": "yarn test && node deploy",
+    "build": "tsc"
   },
   "peerDependencies": {
     "graphql": "^16.0.1"
