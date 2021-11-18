@@ -53,11 +53,7 @@ function sanitizeSchema(source, iterations) {
                     return def;
                 });
                 var nextSource = (0, graphql_1.print)(__assign(__assign({}, doc), { definitions: nextDefs }));
-                return nextSource;
-                // return sanitizeSchema(
-                //   nextSource,
-                //   iterations++
-                // );
+                return sanitizeSchema(nextSource, iterations++);
             }
         }
         throw error;

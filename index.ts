@@ -34,11 +34,10 @@ export function sanitizeSchema(source: string, iterations = 0): string {
           ...doc,
           definitions: nextDefs,
         });
-        return nextSource;
-        // return sanitizeSchema(
-        //   nextSource,
-        //   iterations++
-        // );
+        return sanitizeSchema(
+          nextSource,
+          iterations++
+        );
       }
     }
 
